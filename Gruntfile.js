@@ -18,6 +18,7 @@ module.exports = function(grunt) {
 			,appTemplate: 'template.htm'
 			,appMain: 'app.htm'
 			,distMain: 'app.htm'
+			,vendorBase: 'vendor'
 			,banner: '/*!\n' +
 			      ' * <%= pkg.name %>\n' +			      
 			      ' * <%= pkg.repository.url %>\n' +
@@ -69,11 +70,19 @@ module.exports = function(grunt) {
 	          separator: ';'
 	          ,banner: '/* <%=pkg.name %>-<%=pkg.version %> */'
 	      }
-	      ,dist: {
+	      ,distNoJquery: {
 	          src: [
 	            '<%= cfg.appBase %>/js/*.js'
 	          ]
 	          ,dest: '<%= cfg.distBase %>/<%= cfg.distJs %>'
+	      }
+	      ,dist: {
+	      	 src: [
+	      	 	'<%= cfg.vendorBase %>/dist/jquery.js'
+	      	 	,'vendor_dev/dist/bootstrap.js'
+	      	 	,'<%= cfg.appBase %>/js/*.js'
+	      	 ]
+	      	 ,dest: '<%= cfg.distBase %>/<%= cfg.distJs %>'
 	      }
 	      ,dev: {
 	          src: [
@@ -91,7 +100,7 @@ module.exports = function(grunt) {
 		    ,files: {
 		      '<%= cfg.distBase %>/<%= cfg.distCss %>' : '<%= cfg.appBase %>/<%= cfg.sassSrc %>'
 		    }       
-		  },
+		  },		  
 		  dev: {
 		    options: {
 		      //style: 'compressed'
